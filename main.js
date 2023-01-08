@@ -5,7 +5,7 @@ export function isPalindrome(s) {
   const string = s.toString();
   //Left pointer -> starting index
   let left = 0;
-  //Right pointer -? ending index
+  //Right pointer -> ending index
   let right = s.length - 1;
   //check if the values at the left and right pointer indexes in the string are equal 
   while (left <= right) {
