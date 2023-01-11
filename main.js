@@ -10,6 +10,7 @@ export function isPalindrome(s) {
   let left = 0;
   //Right pointer -> ending index
   let right = s.length - 1;
+  
   //check if the values at the left and right pointer indexes in the string are equal 
   while (left <= right) {
     //if the values are not equal, return false 
@@ -37,6 +38,7 @@ function findTheSumOfThree(nums, target){
     let low = i + 1; 
     //index the last of the remaining elements 
     let high = nums.length - 1; 
+    
     while (low < high){
       //check if the sum of the triple is equal to the sum
       let triple = nums[i] + nums[low] + nums[high];
@@ -79,3 +81,40 @@ function reverseWords(sentence){
     }
   return sentence.join("")
   }
+
+//Valid Palindrome II
+export function isPalindrome(s) {
+    //is s a palindrome
+    let left = 0
+    let right = s.length - 1;
+
+    while(left < right){
+        if(s[left] !== s[right]){
+            //if s isn't a palindrome, try again skipping the character at the left pointer
+            if(is_palindrome(s, left+1, right)){
+                return true
+            }
+            //if s still isn't a palindrome, try again skipping the character at the right pointer
+            if(is_palindrome(s, left, right-1)){
+                return true
+            }
+            // We can't make s a palindrome by removing one character
+            return false
+        }
+        ++left;
+        --right;
+    }
+    return true;
+};
+
+// Helper function
+function is_palindrome(s, left, right){
+    while(left < right){
+        if(s[left] !== s[right]){
+            return false;
+        }
+        ++left;
+        --right;
+    }
+    return true;
+};
