@@ -51,3 +51,31 @@ function findTheSumOfThree(nums, target){
   //three integers not found 
   return false;
 }
+
+//Reverse Words in a String 
+function reverseWords(sentence){
+  //Replace multiple spaces with single space 
+  sentence = sentence.trim().replace(/ +/g, ' ');
+  //Convert the input strings to lists of characters as strings are immutable in JS
+  sentence = [...sentence];
+  //To reverse all words in the string, we will first reverse the entire string.
+  let strLength = sentence.length;
+  sentence = strReverse(sentence, 0, strLength - 1);
+  //Now, all the words are in the desired location, but in reverse order: "Hello World" -> "dlroW olleH"
+  //Iterate the sentence and reverse each word in place: "dlroW olleH" -> "World Hello"
+  let start = 0, 
+  let end = 0;
+  
+  while (true) {
+    //find the start index of each word by detectiung spaces. 
+    while (start < sentence.length && sentence[start] == " ") start += 1; 
+    if(start == strLength) break; 
+    //find the end index of the word. 
+    end = start + 1; 
+    while(end < strLength && sentence[end] != " ") end += 1; 
+    //use helper function to reverse the word in-place 
+    sentence = strReverse(sentence, start, end - 1); 
+    start = end; 
+    }
+  return sentence.join("")
+  }
