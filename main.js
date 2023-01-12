@@ -83,6 +83,18 @@ function reverseWords(sentence){
   }
 
 //Valid Palindrome II
+  //Helper function
+function is_palindrome(s, left, right){
+    while(left < right){
+        if(s[left] !== s[right]){
+            return false;
+        }
+        ++left;
+        --right;
+    }
+    return true;
+};
+
 export function isPalindrome(s) {
     //is s a palindrome
     let left = 0
@@ -107,14 +119,29 @@ export function isPalindrome(s) {
     return true;
 };
 
-// Helper function
-function is_palindrome(s, left, right){
-    while(left < right){
-        if(s[left] !== s[right]){
-            return false;
-        }
-        ++left;
-        --right;
+//Happy Number 
+  //Helper Function
+export default function sumDigits(number) {
+    let totalSum = 0;
+    while (number > 0) {
+        let temp = Math.floor(number / 10),
+            digit = number % 10;
+        number = temp;
+        totalSum += digit ** 2;
     }
-    return true;
-};
+    return totalSum;
+}
+
+export function isHappyNumber(n){
+    //track cycled numbers
+    const hashMap = {}; 
+    //modifying n (while n is different than 1 and the property n doesn't exist in hashMap)
+    while (n !== 1 && !hashMap[n]) {
+        //put n in hashMap if it doesn't exist
+        hashMap[n] = true; 
+        //transform n 
+        n = sumDigits(n);
+    }
+    //evaluate to either true or false 
+    return n===1;
+}
