@@ -120,13 +120,17 @@ export function isPalindrome(s) {
 };
 
 //Happy Number 
-  //Helper Function
+  //Helper Function to calculate the squared sum of digits of the input number. 
 export default function sumDigits(number) {
+    //calculate the sum of the digits 
     let totalSum = 0;
+    //loop iteration number
     while (number > 0) {
         let temp = Math.floor(number / 10),
+            //find the last digit of the given number by taking its modulus with 10.
             digit = number % 10;
         number = temp;
+        //store squared sum of digit 
         totalSum += digit ** 2;
     }
     return totalSum;
