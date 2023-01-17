@@ -419,16 +419,16 @@ export default LinkedList;
 //function to fint the middle node of the linked list 
 
 function getMiddelNode(head){
- //initally slow and fast pointer point to head
- let slow = head, 
- let fast = head; 
- //traverse the linked list until fast reaches the last node or NULL
- while (fast !== null && fast.next !== null){
-  //move slow pointer one step ahead 
-  slow = slow.next;
-  //move fast pointer two steps ahead 
-  fast= fast.next.next;
- }
-  //return the slow pointer
-  return slow; 
-}
+    //initally slow and fast pointer point to head
+    let slow = head, 
+    let fast = head; 
+    //traverse the linked list until fast reaches the last node or NULL
+    while (fast !== null && fast.next !== null){
+    //move slow pointer one step ahead 
+    slow = slow.next;
+    //move fast pointer two steps ahead 
+    fast= fast.next.next;
+  }
+    //return the slow pointer
+    return slow; 
+};
