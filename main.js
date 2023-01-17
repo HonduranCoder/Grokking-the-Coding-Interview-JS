@@ -338,3 +338,97 @@ class LinkedList {
    }
 }
 export default LinkedList;
+
+//Middle of Linked List
+  //Helper Function 
+    //Template for printing the linked list with forward arrows
+function printListWithForwardArrow(linkedListNode) {
+    let temp = linkedListNode;
+    let result = "";
+    while (temp != null) {
+        result += temp.data;
+        temp = temp.next;
+        if (temp != null) result += " → ";
+        // if this is the last node, print null at the end
+        else result += " → null";
+    }
+    return result;
+}
+
+export default printListWithForwardArrow;
+  
+   //Helper Function
+    //Template for linked list node class
+class LinkedListNode {
+    constructor(data, next = null) {
+        this.data = data;
+        this.next = next;
+    }
+}
+
+export default LinkedListNode;
+
+   //Helper Function
+    //import LinkedListNode from "./linked_list_node";
+
+// Template for the linked list
+class LinkedList {
+    constructor() {
+        this.head = null;
+
+        // insertNodeAtHead method will insert a LinkedListNode at head
+        // of a linked list.
+        this.insertNodeAtHead = function (node) {
+            if (this.head != null) {
+                node.next = this.head;
+                this.head = node;
+            } else this.head = node;
+        };
+
+        // createLinkedList method will create the linked list using the
+        // given integer array with the help of InsertAthead method.
+        this.createLinkedList = function (list) {
+            list.reverse().forEach((element) => {
+                let newNode = new LinkedListNode(element);
+                this.insertNodeAtHead(newNode);
+            });
+        };
+
+        // This method will display the elements of the linked list.
+        this.display = function () {
+            let result = "",
+                temp = this.head;
+            while (temp != null) {
+                result += temp.data;
+                temp = temp.next;
+                if (temp != null) {
+                    result += ", ";
+                }
+            }
+            result += "";
+            return result;
+        };
+    }
+}
+
+export default LinkedList;
+
+//Final
+//import printListWithForwardArrow from "./print_list";
+//import LinkedList from "./linked_list";
+//function to fint the middle node of the linked list 
+
+function getMiddelNode(head){
+ //initally slow and fast pointer point to head
+ let slow = head, 
+ let fast = head; 
+ //traverse the linked list until fast reaches the last node or NULL
+ while (fast !== null && fast.next !== null){
+  //move slow pointer one step ahead 
+  slow = slow.next;
+  //move fast pointer two steps ahead 
+  fast= fast.next.next;
+ }
+  //return the slow pointer
+  return slow; 
+}
