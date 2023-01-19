@@ -432,3 +432,48 @@ function getMiddelNode(head){
     //return the slow pointer
     return slow; 
 };
+
+//Circular Array Loop
+/**
+ * @param {number[]} nums
+ * @return {boolean}
+ */
+
+//Helper Function
+function nextIndex(currIndex, direction, arr){
+  //Direction: if result is positive(true) -> forward direction.
+  //Direction: if the result is negative(false) -> backward direction. 
+  let currDirection = arr[currIndex] >= 0;
+  //-1 tells us that we are breaking one condition
+  if(currDirection !== direction) return -1; //direction should be the same throughout the loop.
+    let nextIdx = (currIndex + arr[currIndex]) % arr.length;
+  //if(nextIdx === currIndex) return -1; the array does not contain more than one element.
+  //nextIdx -> loop the array when the index goes out of bound. 
+  if(nextIdx < 0){ 
+    nextIdx = nextIdx + arr.length;
+  }
+
+  if(nextIdx === currIndex) return -1;
+    return nextIdx
+}
+
+var circularArrayLoop = function(arr) {
+ for(let i=0;i<arr.length ;i++){
+  let slow = i;
+  let fast = i;
+  let direction = arr[i] >= 0;
+
+  while(true){
+    slow = nextIndex(slow,direction,arr);
+    fast = nextIndex(fast,direction,arr);
+
+    if(fast !== -1){
+      fast = nextIndex(fast,direction,arr);
+    }
+
+    if(slow === -1 || fast === -1 || slow === fast) break;
+  }
+   if(slow !== -1 && slow === fast) return true; 
+ }
+ return false
+};
