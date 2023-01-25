@@ -579,40 +579,35 @@ function palindrome(head) {
   revertData = null;
   midNode = head;
 
-  // Traverse linkedList through fast and slow
-  // pointers to get the middle node
+  //Traverse linkedList through fast and slow pointers to get the middle node
   while (fast && fast.next) {
     midNode = slow;
     slow = slow.next;
     fast = fast.next.next;
   }
 
-  // Fast pointer of odd linked list will point to last node
-  // of linked list but but will point to NULL for even linked list
+  //Fast pointer of odd linked list will point to last node of linked list but but will point to NULL for even linked list
   savedOddMidnode = null;
   if (fast) {
     savedOddMidnode = slow;
     slow = slow.next;
   }
 
-  // It will skip the first half
+  //It will skip the first half
   midNode.next = null;
 
-  // Pass middle node as a head to reverse function
-  // to revert the next half of linkedList
+  //Pass middle node as a head to reverse function to revert the next half of linkedList
   revertData = reverseLinkedList(slow);
 
-  // Pass second half reverted data to compareTwoHalves
-  // function to check the palindrome property
+  //Pass second half reverted data to compareTwoHalves function to check the palindrome property
   check = false;
   check = compareTwoHalves(head, revertData);
 
-  // Revert second half back to the original linked list
+  //Revert second half back to the original linked list
   revertData = reverseLinkedList(revertData);
 
-  // Connect both halves
-  // If linked list was of odd sized, connect the middle node
-  // first which was skipped while reverting the second half
+  //Connect both halves
+  //If linked list was of odd sized, connect the middle node first which was skipped while reverting the second half
   if (savedOddMidnode) {
     midNode.next = savedOddMidnode;
     savedOddMidnode.next = revertData;
@@ -620,8 +615,7 @@ function palindrome(head) {
     midNode.next = revertData;
   }
 
-  // Return true if there's only one node
-  // or both are pointing to NULL
+  //Return true if there's only one node or both are pointing to NULL
   if (head === null || revertData === null) {
     return true;
   }
@@ -631,25 +625,6 @@ function palindrome(head) {
   }
 
   return false;
-}
-
-function compareTwoHalves(first_half, second_half) {
-  var check;
-  check = false;
-
-  while (first_half !== null && second_half !== null) {
-    if (first_half.data !== second_half.data) {
-      check = false;
-      break;
-    } else {
-      check = true;
-    }
-
-    first_half = first_half.next;
-    second_half = second_half.next;
-  }
-
-  return check;
 }
 
     
