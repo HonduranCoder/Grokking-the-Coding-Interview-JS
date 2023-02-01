@@ -648,3 +648,51 @@ export function findMaxSlidingWindow(nums, w) {
 };
 
 //Minimum Window Subsequence
+function minWindow(str1, str2) {
+    //save the size of str1 and str2
+    let sizeStr1 = str1.length,
+        sizeStr2 = str2.length;
+
+    //initialize length to a very large number (infinity)
+    let length = Infinity;
+    //initialize pointers to zero and the minSubsequence to an empty string
+    let indexS1 = 0,
+        indexS2 = 0,
+        minSubsequence = "";
+
+    //process every character of str1
+    while (indexS1 < sizeStr1) {
+        //check if the character pointed by indexS1 in str1 is the same as the character pointed by indexS2 in str2
+        console.log(`\tIteration no. ${indexS1} starts`);
+        if (str1[indexS1] == str2[indexS2]) {
+            //if the pointed character is the same in both strings increment indexS2
+            indexS2++;
+            //check if indexS2 has reached the end of str2
+            if (indexS2 == sizeStr2) {
+                //at this point the str1 contains all characters of str2
+                //initialize start to the index where all characters of str2 were present in str1
+                let start = indexS1,
+                    end = indexS1+1;
+               //decrement pointer indexS2 and start a reverse loop
+                indexS2--;
+                while (indexS2 >= 0) {
+                    //decrement pointer indexS2 until all characters ofstr2 are found in str1
+                    if (str1[start] == str2[indexS2]) indexS2 -= 1;
+                    //decrement start pointer everytime to find the starting point of the required subsequence
+                    start -= 1;
+                }
+                start++;
+                //check if length of sub sequence pointed by start and end pointers is less than current min length
+                if (end - start < length) {
+                    //update length if current sub sequence is shorter
+                    length = end - start;
+                    //update minimum subsequence string to this new shorter string
+                    minSubsequence = str1.substring(start, end);
+                }
+            }
+        }
+        // Increment pointer indexS1 to check next character in str1
+        indexS1++;
+    }
+    return minSubsequence;
+}
