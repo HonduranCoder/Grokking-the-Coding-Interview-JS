@@ -696,3 +696,55 @@ function minWindow(str1, str2) {
     }
     return minSubsequence;
 }
+
+//Repeated DNA Sequence 
+function findRepeatedSequences(s, k) {
+    let windowSize = k;
+
+    if (s.length <= windowSize) {
+        return "The string is too short.";
+    } else {
+        return "The string is long enough.";
+    }
+}
+
+// Helper function
+function printArray(arr) {
+    let result = "[";
+    for (let i = 0; i < arr.length; i++) {
+        if (typeof arr[i] == "object") {
+            result += printArray(arr[i]);
+        } else {
+            result += arr[i];
+        }
+        if (i != arr.length - 1) result += ", ";
+    }
+    return (result += "]");
+}
+
+function main() {
+    let inputStrings = [
+            "ACGT",
+            "AGACCTAGAC",
+            "AAAAACCCCCAAAAACCCCCC",
+            "GGGGGGGGGGGGGGGGGGGGGGGGG",
+            "TTTTTCCCCCCCTTTTTTCCCCCCCTTTTTTT",
+            "TTTTTGGGTTTTCCA",
+            "",
+            "AAAAAACCCCCCCAAAAAAAACCCCCCCTG",
+            "ATATATATATATATAT",
+        ],
+        inputK = [3, 3, 8, 10, 13, 30, 40, 30, 21];
+
+    for (let i = 0; i < inputK.length; i++) {
+        console.log(i + 1 + ".\tInput Sequence: '" + inputStrings[i] + "'");
+        console.log("\tk:", inputK[i]);
+        console.log(
+            "\tComparing k with the length of the input string:",
+            findRepeatedSequences(inputStrings[i], inputK[i])
+        );
+        console.log("-".repeat(100));
+    }
+}
+
+main();
