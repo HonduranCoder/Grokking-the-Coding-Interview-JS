@@ -700,51 +700,80 @@ function minWindow(str1, str2) {
 //Repeated DNA Sequence 
 function findRepeatedSequences(s, k) {
     let windowSize = k;
-
     if (s.length <= windowSize) {
-        return "The string is too short.";
-    } else {
-        return "The string is long enough.";
+        return [];
     }
+
+    let base = 4, 
+        hiPlaceValue = Math.pow(base, windowSize); 
+
+    let mapping = { A: 1, C: 2, G: 3, T: 4 },
+        numbers = [];
+    for (let i = 0; i < s.length; i++) {
+        numbers.push(mapping[s[i]]);
+    }
+
+    let hashing = 0,
+        subSeq = new Set(),
+        output = new Set();
+
+    for (let start = 0; start < s.length - windowSize + 1; start++) {
+
+        if (start != 0) {
+            hashing = hashing * base;
+            hashing -= numbers[start - 1] * hiPlaceValue;
+            hashing += numbers[start + windowSize - 1];
+        } else {
+            for (let end = 0; end < windowSize; end++) {
+                hashing = hashing * base + numbers[end];
+            }
+        }
+
+        if (subSeq.has(hashing))
+            output.add(s.substring(start, start + windowSize));
+        subSeq.add(hashing);
+    }
+    return [...output];
 }
 
 // Helper function
 function printArray(arr) {
-    let result = "[";
+    let result = "{";
     for (let i = 0; i < arr.length; i++) {
         if (typeof arr[i] == "object") {
             result += printArray(arr[i]);
         } else {
-            result += arr[i];
+            result += `'${arr[i]}'`;
         }
         if (i != arr.length - 1) result += ", ";
     }
-    return (result += "]");
+    return (result += "}");
 }
 
 function main() {
     let inputStrings = [
-            "ACGT",
-            "AGACCTAGAC",
-            "AAAAACCCCCAAAAACCCCCC",
-            "GGGGGGGGGGGGGGGGGGGGGGGGG",
-            "TTTTTCCCCCCCTTTTTTCCCCCCCTTTTTTT",
-            "TTTTTGGGTTTTCCA",
-            "",
-            "AAAAAACCCCCCCAAAAAAAACCCCCCCTG",
-            "ATATATATATATATAT",
-        ],
-        inputK = [3, 3, 8, 10, 13, 30, 40, 30, 21];
+        "ACGT",
+        "AGACCTAGAC",
+        "AAAAACCCCCAAAAACCCCCC",
+        "GGGGGGGGGGGGGGGGGGGGGGGGG",
+        "TTTTTCCCCCCCTTTTTTCCCCCCCTTTTTTT",
+        "TTTTTGGGTTTTCCA",
+        "",
+        "AAAAAACCCCCCCAAAAAAAACCCCCCCTG",
+        "ATATATATATATATAT",
+    ];
+    inputK = [3, 3, 8, 12, 10, 14, 10, 10, 6];
 
     for (let i = 0; i < inputK.length; i++) {
         console.log(i + 1 + ".\tInput Sequence: '" + inputStrings[i] + "'");
         console.log("\tk:", inputK[i]);
         console.log(
-            "\tComparing k with the length of the input string:",
-            findRepeatedSequences(inputStrings[i], inputK[i])
+            "\tRepeated Subsequence:",
+            printArray(findRepeatedSequences(inputStrings[i], inputK[i]))
         );
         console.log("-".repeat(100));
     }
 }
 
 main();
+
