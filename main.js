@@ -699,6 +699,7 @@ function minWindow(str1, str2) {
 
 //Repeated DNA Sequence 
 function findRepeatedSequences(s, k) {
+    //iterate the string
     let windowSize = k;
     if (s.length <= windowSize) {
         return [];
@@ -712,13 +713,14 @@ function findRepeatedSequences(s, k) {
     for (let i = 0; i < s.length; i++) {
         numbers.push(mapping[s[i]]);
     }
-
+    //compute the hash value to the sdet that keeps track of the hashes of all substrings of the given length.
+    //add this hash value to the set that keeps track of the hashes of all substrings of the given length.
     let hashing = 0,
         subSeq = new Set(),
         output = new Set();
 
     for (let start = 0; start < s.length - windowSize + 1; start++) {
-
+        //move the window one step forward and compute a new hash value
         if (start != 0) {
             hashing = hashing * base;
             hashing -= numbers[start - 1] * hiPlaceValue;
@@ -728,11 +730,13 @@ function findRepeatedSequences(s, k) {
                 hashing = hashing * base + numbers[end];
             }
         }
-
+        //if the hash value of the window has already been seen, the sequence in this window is repeated
+        //so we add it to our output set.
         if (subSeq.has(hashing))
             output.add(s.substring(start, start + windowSize));
         subSeq.add(hashing);
     }
+    //once all characters of the string have been traversed, we return the output array. 
     return [...output];
 }
 
