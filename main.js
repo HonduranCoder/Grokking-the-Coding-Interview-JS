@@ -1,4 +1,5 @@
 //GROKKING
+//https://www.educative.io/courses/grokking-coding-interview-patterns-javascript
 
 //Valid Palindrome
 export function isPalindrome(s) {
